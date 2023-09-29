@@ -1,0 +1,15 @@
+Dictionary<string, string> yourDictionary = new Dictionary<string, string>();
+yourDictionary.Add("Role_1", "Filter_1");
+yourDictionary.Add("Role_2", "Filter_2");
+
+var table = "Your_Table";
+var column_name = "Your_Column";
+
+foreach (KeyValuePair<string, string> kvp in yourDictionary)
+{
+    string key = kvp.Key;
+    string value = kvp.Value;
+    var role = Model.AddRole(key);
+    role.ModelPermission = ModelPermission.Read;
+    Model.Tables[table].RowLevelSecurity[key]= "[" + column_name + "] = \"" + value + "\"";
+}
